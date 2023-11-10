@@ -22,10 +22,10 @@ app.get("/", (req, res) => {
   res.send("Bienvenido");
 });
 
-app.use("/api/usuarios", UsuariosRoutes);
-app.use("/api/iniciarSesion", UsuariosRoutes);
-app.use("/api/categorias", CategoriasRoutes);
-app.use("/api/institucion", InstitucionRoutes);
-app.use("/api/subcategorias", SubcategoriasRoutes);
+app.use("/api/usuarios", UsuariosRoutes)
+app.use("/api/iniciarSesion", UsuariosRoutes)
+app.use("/api/categorias", CategoriasRoutes)
+app.use("/api/institucion", InstitucionRoutes)
+app.use("/api/subcategorias", SubcategoriasRoutes)
 
 export default app;

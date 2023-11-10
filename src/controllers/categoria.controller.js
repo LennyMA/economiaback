@@ -93,11 +93,6 @@ export const eliminarCategoria = async (req, res) => {
 
 export const actualizarCategoria = async (req, res) => {
   try {
-    if (!req.body.nombreCategoria) {
-      return res.status(400).json({
-        mensaje: 'La categoria es un campo requerido'
-      })
-    }
 
     const categoria = await Categoria.findById(req.params.id)
     const nombreCategoria = await Categoria.findOne({nombreCategoria: req.body.nombreCategoria})

@@ -1,5 +1,38 @@
 import Usuario from '../models/Usuario'
 
+export const iniciarSesion = async (req, res) => {
+  // const { correo, clave } = req.body
+  try {
+    const usuario = await Usuario.findOne({ correo: req.body.correo })
+
+    if (!usuario) {
+      return res.status(400).json({
+        mensaje: `No existe el usuario ${req.body.correo}`
+      })
+    }
+
+    const claveCorrecta = await usuario.compararClave(req.body.clave)
+
+    if (!claveCorrecta) {
+      return res.status(401).json({
+        mensaje: 'Clave incorrecta'
+      })
+    }
+
+    // const token = generarTokenAutenticacion(usuario)
+    return res.json({
+      "encontrado": true
+    })
+
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Algo ha salido mal en login',
+      "encontrado": false,
+      error: error.mensaje
+    })
+  }
+}
+
 export const registrarUsuario = async (req, res) => {
   try {
     if (!req.body.correo || !req.body.clave) {
@@ -22,7 +55,10 @@ export const registrarUsuario = async (req, res) => {
     })
 
     const usuarioGuardado = await nuevoUsuario.save()
-    res.json(usuarioGuardado)
+    res.json({
+      usuarioGuardado,
+      "creado": true
+    })
   } catch (error) {
     return res.status(500).json({
       mensaje: 'Algo ha salido mal'
@@ -44,42 +80,6 @@ export const buscarUsuarioxCorreo = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       mensaje: 'Algo ha salido mal'
-    })
-  }
-}
-
-export const iniciarSesion = async (req, res) => {
-  // const { correo, clave } = req.body
-  try {
-    const usuario = await Usuario.findOne({ correo: req.body.correo })
-
-    if (!usuario) {
-      return res.status(400).json({
-        mensaje: 'No existe el usuario con ese correo login'
-      })
-    }
-
-    const claveCorrecta = await usuario.compararClave(req.body.clave)
-
-    if (!claveCorrecta) {
-      return res.status(401).json({
-        mensaje: 'Clave incorrecta'
-      })
-    }
-
-    // const token = generarTokenAutenticacion(usuario)
-    res.json({
-      mensaje: 'Inicio de sesion',
-      // token,
-      usuario: {
-        correo: usuario.correo
-      }
-    })
-
-  } catch (error) {
-    return res.status(500).json({
-      mensaje: 'Algo ha salido mal en login',
-      error: error.mensaje
     })
   }
 }

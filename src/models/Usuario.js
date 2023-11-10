@@ -37,20 +37,6 @@ UsuarioSchema.pre(['save', 'findByIdAndUpdate'], async function (next) {
   }
 })
 
-// UsuarioSchema.pre(['save', 'findOneAndUpdate'], async function (next) {
-//   if (this.isModified('clave')) {
-//     try {
-//       const salt = await bcrypt.genSalt(10);
-//       const hashedClave = await bcrypt.hash(this.clave, salt);
-//       this.clave = hashedClave;
-//     } catch (error) {
-//       return next(error);
-//     }
-//   }
-//   next();
-// });
-
-
 //comparar claves para el login
 UsuarioSchema.methods.compararClave = async function (clave) {
   return await bcrypt.compare(clave, this.clave)
