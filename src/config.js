@@ -1,6 +1,6 @@
-import {config} from 'dotenv'
+import { config } from 'dotenv'
 
 config()
 export default {
-  mongodbURL: process.env.MONGODB_URL
+  mongodbURL: process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/simulador'
 }
