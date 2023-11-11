@@ -5,8 +5,9 @@ import multer from 'multer'
 const router = Router()
 const upload = multer()
 
-router.put('/:id', institucionController.actualizarInstitucion)
+router.put('/:id',upload.single('logo'), institucionController.actualizarInstitucion)
 router.post('/', upload.single('logo'), institucionController.agregarInstitucion)
 router.get('/:id', institucionController.obtenerLogoInstitucion)
+router.get("/", institucionController.obtenerInstitucion);
 
 export default router

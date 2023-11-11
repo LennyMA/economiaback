@@ -11,6 +11,9 @@ const InstitucionSchema = new Schema({
   color: {
     type: String,
     required: true
+  },
+  publicidad: {
+    type: [String]
   }
 }, {
   timestamps: true,
