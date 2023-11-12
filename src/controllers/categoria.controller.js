@@ -95,13 +95,7 @@ export const actualizarCategoria = async (req, res) => {
   try {
 
     const categoria = await Categoria.findById(req.params.id)
-    const nombreCategoria = await Categoria.findOne({nombreCategoria: req.body.nombreCategoria})
 
-    if(nombreCategoria){
-      return res.status(400).json({
-        mensaje: `La categoria ${nombreCategoria.nombreCategoria} ya existe`,
-      })
-    }
     categoria.nombreCategoria = req.body.nombreCategoria || categoria.nombreCategoria;
     categoria.cobrosIndirectos.seguro = (req.body.cobrosIndirectos && req.body.cobrosIndirectos.seguro !== undefined) ? req.body.cobrosIndirectos.seguro : categoria.cobrosIndirectos.seguro;
     categoria.cobrosIndirectos.donaciones = (req.body.cobrosIndirectos && req.body.cobrosIndirectos.donaciones !== undefined) ? req.body.cobrosIndirectos.donaciones : categoria.cobrosIndirectos.donaciones;
