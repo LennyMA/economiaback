@@ -6,7 +6,8 @@ const InstitucionSchema = new Schema({
     required: true
   },
   logo: {
-    type: Buffer
+    type: String,
+    required: true
   },
   color: {
     type: String,
