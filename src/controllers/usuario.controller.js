@@ -1,5 +1,20 @@
 import Usuario from '../models/Usuario'
 
+export const obtenerUsuario = async (req, res) => {
+  try {
+    const usuario = await Usuario.find();
+    res.json({
+      usuario,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      mensaje: "Algo ha salido mal",
+      error: error.message,
+    });
+  }
+};
+
 export const iniciarSesion = async (req, res) => {
   // const { correo, clave } = req.body
   try {
